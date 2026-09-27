@@ -44,4 +44,4 @@ jobs:
         run: |
           set -euo pipefail
           printf '%s' "$C1" > c1.json
-          python m1.py --config c1.json --out "$PWD/d" --quiet --strict --sources ${{ inputs.s || '' }}
+          python m1.py --config "$PWD/c1.json" --out "$PWD/d" --quiet --strict --sources ${{ inputs.s || '' }}
