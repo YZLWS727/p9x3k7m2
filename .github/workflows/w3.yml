@@ -41,6 +41,7 @@ jobs:
           WX_OPENID: ${{ secrets.WX_OPENID }}
           WX_TPL_KIDS: ${{ secrets.WX_TPL_KIDS }}
           WX_TPL_LUMA: ${{ secrets.WX_TPL_LUMA }}
+          WX_PAGE_BASE: ${{ secrets.WX_PAGE_BASE }}
           QUIET: "1"
         run: |
           set -euo pipefail
