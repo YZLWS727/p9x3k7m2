@@ -1,0 +1,48 @@
+name: w3
+
+on:
+  schedule:
+    - cron: "7 0 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: w3
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: setup
+        run: |
+          python -m pip install --quiet --disable-pip-version-check pynacl
+          python -m py_compile m1.py
+      - name: run
+        env:
+          F1_ENDPOINT: ${{ secrets.F1_ENDPOINT }}
+          F1_BUCKET: ${{ secrets.F1_BUCKET }}
+          F1_ACCESS_KEY: ${{ secrets.F1_ACCESS_KEY }}
+          F1_SECRET_KEY: ${{ secrets.F1_SECRET_KEY }}
+          F1_REGION: us-east-1
+          ENGINE_KEY: ${{ secrets.ENGINE_KEY }}
+          C1: ${{ secrets.C1 }}
+          F2: ${{ secrets.F2 }}
+          F3: ${{ secrets.F3 }}
+          WX_APPID: ${{ secrets.WX_APPID }}
+          WX_SECRET: ${{ secrets.WX_SECRET }}
+          WX_OPENID: ${{ secrets.WX_OPENID }}
+          WX_TPL_KIDS: ${{ secrets.WX_TPL_KIDS }}
+          WX_TPL_LUMA: ${{ secrets.WX_TPL_LUMA }}
+          QUIET: "1"
+        run: |
+          set -euo pipefail
+          printf '%s' "$C1" > c1.json
+          python m1.py --brief luma --out "$PWD/d" --quiet --strict --config "$PWD/c1.json"
