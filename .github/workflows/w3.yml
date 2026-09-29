@@ -42,6 +42,9 @@ jobs:
           WX_TPL_KIDS: ${{ secrets.WX_TPL_KIDS }}
           WX_TPL_LUMA: ${{ secrets.WX_TPL_LUMA }}
           WX_PAGE_BASE: ${{ secrets.WX_PAGE_BASE }}
+          SITE_TOKEN: ${{ secrets.GH_PAT }}
+          SITE_OWNER: YZLWS727
+          SITE_REPO: m3x8k2p9
           QUIET: "1"
         run: |
           set -euo pipefail
